@@ -82,7 +82,7 @@ if selected_mbti:
     st.balloons()  # 🎈 팡!
 
     st.markdown("---")
-    st.subheader(f"🔮 {selected_mbti}님의 추천 결과!")
+    st.subheader(f"🔮 {selected_mbti}에 어울리는 결과는!")
 
     if choice == "💘 이상형":
         st.success(mbti_love[selected_mbti])
