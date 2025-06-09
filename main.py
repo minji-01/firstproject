@@ -47,7 +47,7 @@ mbti_books = {
 
 # 페이지 세팅
 st.set_page_config(page_title="MBTI 성별 맞춤 큐레이션", layout="centered")
-st.title("🧬 MBTI 성별 맞춤 인생 큐레이션 서비스")
+st.title("🧬 MBTI로 나의 취향 알아보기")
 
 # MBTI 선택
 selected_mbti = st.selectbox("👉 당신의 MBTI는?", [""] + mbti_list)
