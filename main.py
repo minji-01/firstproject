@@ -49,7 +49,7 @@ mbti_jobs = {
 }
 
 # 🎈 타이틀
-st.title("🌀 MBTI 기반 이상형/직업 추천기 🎯")
+st.title("🌀 MBTI로 알아보는 내 이상형과 직업  🎯")
 st.markdown("오늘도 MBTI로 인생을 해석해보자구요~ 😆")
 
 # 🧠 MBTI 선택
