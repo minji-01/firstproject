@@ -1,36 +1,75 @@
 import streamlit as st
 
-# 📌 MBTI별 추천 영화 데이터
-mbti_movies = {
-    "INTJ": ["🎬 Interstellar", "🧠 A Beautiful Mind"],
-    "INTP": ["🔍 The Imitation Game", "💡 Primer"],
-    "ENTJ": ["🚀 The Martian", "📈 Moneyball"],
-    "ENTP": ["🧪 Back to the Future", "🧬 Jurassic Park"],
-    "INFJ": ["🌌 Contact", "🔮 Arrival"],
-    "INFP": ["🎥 Donnie Darko", "🌱 The Man from Earth"],
-    "ENFJ": ["🎓 Good Will Hunting", "🧬 Gattaca"],
-    "ENFP": ["🌀 Cloud Atlas", "🔭 October Sky"],
-    "ISTJ": ["📐 Hidden Figures", "💾 The Theory of Everything"],
-    "ISFJ": ["🔬 Awakenings", "🧬 Lorenzo's Oil"],
-    "ESTJ": ["🧮 Apollo 13", "📊 The Big Short"],
-    "ESFJ": ["🧑‍🏫 Stand and Deliver", "🎓 Dead Poets Society"],
-    "ISTP": ["🧲 Tenet", "🔍 Pi"],
-    "ISFP": ["📸 The Secret Life of Walter Mitty", "💡 Koyaanisqatsi"],
-    "ESTP": ["🎢 Limitless", "🌌 Gravity"],
-    "ESFP": ["🎡 The Prestige", "🧠 Lucy"],
+# 🧠 MBTI 목록
+mbti_list = [
+    "INTJ", "INTP", "ENTJ", "ENTP",
+    "INFJ", "INFP", "ENFJ", "ENFP",
+    "ISTJ", "ISFJ", "ESTJ", "ESFJ",
+    "ISTP", "ISFP", "ESTP", "ESFP"
+]
+
+# 💘 MBTI별 이상형
+mbti_love = {
+    "INTJ": "🧠 똑똑하면서도 나만 알아주는 사람! (비밀 많은 천재상 🕵️‍♀️)",
+    "INTP": "💭 이상한 질문도 진지하게 들어주는 사람 (철학 토크 환영 ☕)",
+    "ENTJ": "🔥 내 야망을 이해하고 옆에서 응원해주는 슈퍼 서포터 💪",
+    "ENTP": "🎢 토론하다가 썸타는 스타일?! 대화가 재밌는 사람 😜",
+    "INFJ": "🌌 내 깊은 내면을 알아봐 주는 감성적인 영혼 💫",
+    "INFP": "🧚‍♀️ 동화 같은 사랑을 꿈꾸는 낭만파! 상상력 폭발 💖",
+    "ENFJ": "💞 모두에게 친절하지만 나에겐 더 특별한 사람! ✨",
+    "ENFP": "🎉 같이 춤추고 여행하고 웃음이 끊기지 않는 사람 😍",
+    "ISTJ": "📋 약속 잘 지키고 꾸준한 사람 (시간 약속 1분도 늦지 마❗)",
+    "ISFJ": "🍪 따뜻한 집밥 같은 사람, 포근포근 안정감 최고 🏡",
+    "ESTJ": "📈 내 야망에 맞춰서 같이 성장할 사람 💼🔥",
+    "ESFJ": "🎂 이벤트 잘 챙겨주고 감동 주는 사람! 감성만렙 🎁",
+    "ISTP": "🔧 말은 없지만 행동으로 다 해주는 실력파 연인 😎",
+    "ISFP": "🌷 조용하지만 예술적인 감성이 넘치는 낭만 연인 💗",
+    "ESTP": "🚀 같이 번지점프도 할 수 있는 액션 커플 🧗",
+    "ESFP": "🎤 파티에서 주목받는 나를 같이 빛내주는 사람 ✨"
 }
 
-# 🎉 앱 타이틀
-st.title("🎭 MBTI 맞춤 🎥 과학 & 수학 영화 추천기")
-st.markdown("당신의 성격에 어울리는 명작 과학/수학 영화를 추천해드려요! 💡")
+# 💼 MBTI별 직업 추천
+mbti_jobs = {
+    "INTJ": "🧠 전략가형: 과학자, 개발자, 데이터 분석가 (AI랑 대화하는 직업도 찰떡!)",
+    "INTP": "🔍 사색가형: 연구원, 철학자, UX 디자이너 (생각에 잠기다가 천재됨 💡)",
+    "ENTJ": "📈 지도자형: CEO, 전략기획자, 변호사 (리더십 만렙 🔥)",
+    "ENTP": "🗣️ 발명가형: 창업가, 광고기획자, 방송작가 (아이디어 폭발 💥)",
+    "INFJ": "🌠 예언자형: 심리상담사, 작가, 인권운동가 (세상을 구할 타입 🌍)",
+    "INFP": "🎨 중재자형: 시인, 애니메이터, 콘텐츠 작가 (감성 폭발주의 ⚠️)",
+    "ENFJ": "🧑‍🏫 선도자형: 선생님, 코치, 커뮤니티 리더 (모두를 챙김 👑)",
+    "ENFP": "🎭 활동가형: 유튜버, 여행가이드, 기획자 (지루함? 그게 뭐죠?)",
+    "ISTJ": "📊 관리자형: 회계사, 공무원, 군인 (계획은 철저히! ✅)",
+    "ISFJ": "🍵 수호자형: 간호사, 교사, 복지사 (마음 따뜻한 힐러 🧣)",
+    "ESTJ": "🧱 집행자형: 관리자, 법무팀, 생산관리 (조직을 이끄는 핵심 인재 💼)",
+    "ESFJ": "🎀 돌봄형: 행사기획자, 상담가, HR담당자 (생일파티도 200% 완벽!)",
+    "ISTP": "🔧 장인형: 엔지니어, 파일럿, 메카닉 (도구 들고 있으면 행복함 🛠️)",
+    "ISFP": "🎼 예술가형: 플로리스트, 뷰티아티스트, 포토그래퍼 (감성 찢음 📸)",
+    "ESTP": "🏎️ 모험가형: 소방관, 프로 운동선수, 마케터 (움직이면 돈 됨 💸)",
+    "ESFP": "🎉 연예인형: 배우, 댄서, MC (무대체질 🤩)"
+}
 
-# 📋 MBTI 선택
-mbti_options = list(mbti_movies.keys())
-selected_mbti = st.selectbox("당신의 MBTI를 선택하세요", [""] + mbti_options)
+# 🎈 타이틀
+st.title("🌀 MBTI 기반 이상형/직업 추천기 🎯")
+st.markdown("오늘도 MBTI로 인생을 해석해보자구요~ 😆")
 
-# 🎬 추천 결과
+# 🧠 MBTI 선택
+selected_mbti = st.selectbox("당신의 MBTI는요...? 👀", [""] + mbti_list)
+
+# 🧭 궁금한 것 선택
 if selected_mbti:
-    st.balloons()  # 🎈 풍선 효과
-    st.success(f"🎉 {selected_mbti}에게 딱 어울리는 영화들입니다!")
-    for movie in mbti_movies[selected_mbti]:
-        st.markdown(f"- {movie}")
+    curiosity = st.radio("뭐가 궁금해요? 선택하세요 😏", ("💘 이상형", "💼 직업"))
+
+    # 🎈 풍선 팡!
+    st.balloons()
+
+    # 🔮 결과 출력
+    st.markdown("---")
+    st.subheader(f"🧬 {selected_mbti}의 운명적 추천은?!")
+
+    if curiosity == "💘 이상형":
+        st.success(f"✨ 이상형 타입: {mbti_love[selected_mbti]}")
+    elif curiosity == "💼 직업":
+        st.info(f"💼 찰떡 직업: {mbti_jobs[selected_mbti]}")
+
+    st.markdown("💌 마음에 들었으면 친구한테도 알려주기~ (부끄러워하지 말기 😜)")
+
