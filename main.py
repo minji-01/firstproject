@@ -1,6 +1,6 @@
 import streamlit as st
 
-# 🎭 MBTI 목록
+# MBTI 리스트
 mbti_list = [
     "INTJ", "INTP", "ENTJ", "ENTP",
     "INFJ", "INFP", "ENFJ", "ENFP",
@@ -8,87 +8,86 @@ mbti_list = [
     "ISTP", "ISFP", "ESTP", "ESFP"
 ]
 
-# 💘 이상형 설명
+gender_list = ["남성", "여성"]
+
 mbti_love = {
-    "INTJ": "🧠 말이 많지 않아도 통하는 지적 케미! 조용한 천재+천재 커플, 상상만 해도 심장 폭발 🚀",
-    "INTP": "💬 엉뚱한 질문도 진지하게 받아주는 사람! 철학 토론하다 사랑에 빠지는 스타일 😌",
-    "ENTJ": "🔥 내가 세운 목표를 옆에서 믿고 응원해주는 사람, 함께 왕국을 세울 운명 💼👑",
-    "ENTP": "🎢 대화가 춤을 추는 사람! 토론 중 썸타고 웃음으로 고백하는 스타일 🎤",
-    "INFJ": "🌌 마음 깊은 곳까지 들여다봐 주는 사람에게만 열리는 문… 비밀스럽고 낭만적 💖",
-    "INFP": "🧚 몽글몽글한 감성을 나눌 수 있는 감정 천재! 같이 그림 그리고 시 쓰는 연인 🍃",
-    "ENFJ": "💞 세상 모두에게 친절한 그대, 나에겐 더더더 특별한 관심을 주는 연인✨",
-    "ENFP": "🎉 파티도 같이! 울 때도 같이! 감정 풍선 터지는 감성폭발 커플 🎈",
-    "ISTJ": "📏 성실하고 신뢰감 넘치는 관계, 약속을 소중히 여기는 모범 연애 🗓️",
-    "ISFJ": "🍪 포근하고 따뜻한 케어 담당! 말없이도 마음이 전해지는 스타일 ☕",
-    "ESTJ": "🧱 계획대로 되는 연애! 책임감 있고 야망 넘치는 나를 함께 끌어올려줄 사람 📈",
-    "ESFJ": "🎀 생일, 기념일, 아무 날도 챙겨주는 감동 요정! 감성 세심함 대폭발 💌",
-    "ISTP": "🛠️ 말보다 행동! 말없이 챙겨주는 무심한 듯 다정한 연인 💫",
-    "ISFP": "🎨 감성 한 스푼, 예술성 두 스푼! 조용한데 자꾸 끌리는 마성의 매력 🌷",
-    "ESTP": "🎮 스릴과 재미로 꽉 찬 연애! 뭐든 같이 해보자고 말하는 모험 연인 🏄",
-    "ESFP": "🌟 연애가 축제! 밝고 에너지 넘치며 오늘도 내 편이 되어주는 사랑꾼 🎊"
+    "INTJ": {"남성": "🔍 계획형 INTJ! 당신은 '말보단 뇌파로 통하는 사람'에게 끌려요!",
+             "여성": "🧠 분석 여왕 INTJ! 조용하고 지적인 사람에게 마음이 움직이죠!"},
+    "INFP": {"남성": "🌸 감성 INFP! 마음을 따뜻하게 어루만져주는 사람에게 약해요~",
+             "여성": "🧚‍♀️ 꿈 많은 INFP! 동화 같은 연애를 꿈꾸는 로맨티스트에요!"}
 }
 
-# 💼 직업 설명
 mbti_jobs = {
-    "INTJ": "🧠 전략가 기질이 뿜뿜! 과학자, 개발자, 분석가처럼 계획 세우고 실현하는 일에 찰떡이에요.",
-    "INTP": "🔍 호기심 천재! 연구원, 발명가, UX 디자이너처럼 계속 질문 던지며 파고드는 일이 잘 맞아요.",
-    "ENTJ": "📈 팀 이끌고 성과 뽑는 능력자! 기획자, CEO, 전략 컨설턴트가 아주 잘 어울려요.",
-    "ENTP": "💡 창의력 폭발! 스타트업 창업가, 콘텐츠 크리에이터처럼 아이디어로 승부하는 직업이 잘 맞아요.",
-    "INFJ": "🌠 의미 있는 일에 몰입하는 타입! 상담가, 심리학자, 작가처럼 깊이 있는 직업이 찰떡!",
-    "INFP": "🎨 감성 뿜뿜! 콘텐츠 작가, 시인, 예술가처럼 감정과 상상력을 발휘할 수 있는 직업이 좋아요.",
-    "ENFJ": "🌟 리더십과 공감력으로 모두를 챙기는 멋진 사람! 교사, 멘토, 코치가 딱이에요.",
-    "ENFP": "🎭 사람 만나는 게 힘이 되는 당신! 여행가이드, 유튜버, 마케터 같은 직업이 딱!",
-    "ISTJ": "📊 계획과 규칙을 사랑하는 당신! 회계사, 공무원, 관리자처럼 체계적인 직업이 잘 맞아요.",
-    "ISFJ": "🫖 따뜻한 배려의 달인! 간호사, 복지사, 교사처럼 돌봄이 필요한 일이 찰떡이죠.",
-    "ESTJ": "🧱 조직의 기둥! 운영관리자, 법무팀, 프로젝트 매니저 같은 리더형 직업이 잘 맞아요.",
-    "ESFJ": "🎀 이벤트계의 귀재! HR담당자, 상담가, 기획자처럼 사람 중심의 일이 좋아요.",
-    "ISTP": "🔧 손으로 뚝딱! 기술자, 엔지니어, 정비사처럼 실제로 뭔가 만드는 일이 잘 맞아요.",
-    "ISFP": "🎼 감각과 감성의 조화! 플로리스트, 아티스트, 패션디자이너가 딱이에요.",
-    "ESTP": "🚀 가만있기 힘들어요! 스포츠선수, 소방관, 세일즈맨처럼 활동적인 일이 잘 어울려요.",
-    "ESFP": "🎤 무대체질 인정! 배우, 가수, 댄서처럼 주목받는 일이 너무 잘 맞아요!"
+    "INTJ": "📊 전략가! 기획자, 데이터 분석가, 과학자 타입이에요.",
+    "INFP": "✒️ 창작러! 작가, 디자이너, 상담가가 어울려요."
 }
 
-# 🍿 영화 설명
 mbti_movies = {
-    "INTJ": "🎬 Interstellar – 우주와 시간 속에 담긴 전략적 감정, INTJ의 머리를 자극하고 마음을 울려요.",
-    "INTP": "🧠 The Imitation Game – 천재적인 두뇌와 논리, 그리고 복잡한 인간관계까지… 완전 INTP 취향!",
-    "ENTJ": "🚀 The Martian – 위기를 리더십으로 이겨내는 모습이 ENTJ의 피를 끓게 만들죠.",
-    "ENTP": "🧪 Back to the Future – 시간여행의 아이디어 폭풍! ENTP의 상상력과 완전 찰떡이에요.",
-    "INFJ": "🌌 Arrival – 언어, 감정, 시간에 대한 철학적 이야기. INFJ의 내면에 폭풍 공감 💭",
-    "INFP": "🎥 Donnie Darko – 현실과 환상의 경계에서 철학하는 INFP를 위한 감성 판타지 🌌",
-    "ENFJ": "🎓 Good Will Hunting – 가능성을 이끌어내는 따뜻한 리더, ENFJ를 닮은 이야기 💫",
-    "ENFP": "🌈 The Secret Life of Walter Mitty – 꿈을 따라 떠나는 모험, ENFP의 삶 자체 🎒",
-    "ISTJ": "📐 Hidden Figures – 철저한 분석과 노력으로 이룬 성과! ISTJ의 교과서 같은 이야기 💻",
-    "ISFJ": "🧬 Lorenzo’s Oil – 가족과 사랑을 위한 희생, ISFJ의 마음을 울릴 감동 실화 😢",
-    "ESTJ": "📊 Moneyball – 데이터로 게임을 지배하는 논리왕! ESTJ의 전투적 두뇌와 완전 궁합!",
-    "ESFJ": "🎁 Dead Poets Society – 모두를 챙기고 감동을 나누는 ESFJ에게 어울리는 따뜻한 드라마 ☕",
-    "ISTP": "🔍 Tenet – 복잡한 구조와 시간 조작, 사고력 만렙 ISTP에게 완벽한 퍼즐 영화 🎞️",
-    "ISFP": "🌷 The Secret Garden – 고요하고 감성적인 분위기, ISFP의 영혼을 사르르 감싸요 🌿",
-    "ESTP": "🎢 Limitless – 한계를 깨부수는 스릴! ESTP에게 완벽한 쾌속 전개 ⚡",
-    "ESFP": "🎤 The Greatest Showman – 빛나는 무대, 감동의 이야기! ESFP가 눈물+흥 폭발할 작품 🎪"
+    "INTJ": (
+        "Interstellar",
+        "https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg",
+        "https://www.youtube.com/watch?v=zSWdZVtXT7E"
+    ),
+    "INFP": (
+        "The Secret Life of Walter Mitty",
+        "https://upload.wikimedia.org/wikipedia/en/e/e7/The_Secret_Life_of_Walter_Mitty_2013_poster.jpg",
+        "https://www.youtube.com/watch?v=QD6cy4PBQPI"
+    )
 }
 
-# 🎉 타이틀
-st.title("🌀 MBTI로 내 취향 발견하기 🎭")
-st.markdown("**MBTI로 알아보는 이상형, 직업, 영화 추천 서비스!** 오늘도 인생은 심리테스트 각이다~ 😆")
+mbti_travel = {
+    "INTJ": "📚 빈 (오스트리아) - 고요하게 사색하기 딱 좋은 클래식 도시!",
+    "INFP": "🌈 프라하 - 감성과 낭만이 흐르는 동화 같은 도시!"
+}
 
-# 🎯 MBTI 선택
-selected_mbti = st.selectbox("당신의 MBTI를 골라주세요! 🧠", [""] + mbti_list)
+mbti_books = {
+    "INTJ": "🧠 『사피엔스』 - 냉철한 지적 탐험을 좋아하는 당신에게!",
+    "INFP": "📖 『어린 왕자』 - 마음 깊은 곳을 건드리는 따뜻한 이야기!"
+}
 
-# 📍 궁금한 것 선택
+# 페이지 세팅
+st.set_page_config(page_title="MBTI 성별 맞춤 큐레이션", layout="centered")
+st.title("🧬 MBTI로 나의 취향 알아보기")
+
+# MBTI 선택
+selected_mbti = st.selectbox("👉 당신의 MBTI는?", [""] + mbti_list)
+
 if selected_mbti:
-    choice = st.radio("뭐가 궁금하세요? 😏", ("💘 이상형", "💼 직업", "🎥 추천 영화"))
+    # 성별 선택
+    selected_gender = st.radio("🚻 성별을 선택해주세요!", gender_list, horizontal=True)
 
-    st.balloons()  # 🎈 팡!
+    if selected_gender:
+        st.balloons()
+        st.markdown("### 😎 무엇이 궁금한가요?")
 
-    st.markdown("---")
-    st.subheader(f"🔮 {selected_mbti}에 어울리는 결과는!")
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("💘 이상형"):
+                if selected_mbti in mbti_love and selected_gender in mbti_love[selected_mbti]:
+                    st.subheader("✨ 당신의 이상형 스타일은...")
+                    st.info(mbti_love[selected_mbti][selected_gender])
+                else:
+                    st.warning("🙈 해당 MBTI의 성별 데이터가 아직 부족해요... 다음에 추가할게요!")
 
-    if choice == "💘 이상형":
-        st.success(mbti_love[selected_mbti])
-    elif choice == "💼 직업":
-        st.info(mbti_jobs[selected_mbti])
-    elif choice == "🎥 추천 영화":
-        st.warning(mbti_movies[selected_mbti])
+            if st.button("💼 어울리는 직업"):
+                st.subheader("✨ 추천 직업은...")
+                st.success(mbti_jobs.get(selected_mbti, "아직 데이터가 부족해요! 조금만 기다려줘요 🙏"))
 
-    st.markdown("💌 재밌었으면 친구에게도 공유해보세요! (안 하면 삐짐 😝)")
+            if st.button("📚 추천 도서"):
+                st.subheader("✨ 이 책 어때요?")
+                st.info(mbti_books.get(selected_mbti, "독서취향 분석 중이에요~ 기다려줘요! 📖"))
+
+        with col2:
+            if st.button("🎥 인생 영화"):
+                movie = mbti_movies.get(selected_mbti)
+                if movie:
+                    title, img_url, trailer_url = movie
+                    st.subheader(f"✨ {title}")
+                    st.image(img_url, width=250, caption="🎬 당신에게 찰떡인 인생 영화!")
+                    st.link_button("🎞️ 예고편 보러가기", trailer_url)
+                else:
+                    st.warning("🎥 영화 데이터가 준비 중이에요!")
+
+            if st.button("✈️ 여행지 추천"):
+                st.subheader("✨ 떠나볼까요?")
+                st.warning(mbti_travel.get(selected_mbti, "지금 당신의 여행지 정렬 중이에요 ✈️"))
