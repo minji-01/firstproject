@@ -24,15 +24,13 @@ mbti_movies = {
 st.title("🎭 MBTI 맞춤 🎥 과학 & 수학 영화 추천기")
 st.markdown("당신의 성격에 어울리는 명작 과학/수학 영화를 추천해드려요! 💡")
 
-# 📩 MBTI 입력
-user_mbti = st.text_input("당신의 MBTI를 입력하세요 (예: INFP)", max_chars=4).upper()
+# 📋 MBTI 선택
+mbti_options = list(mbti_movies.keys())
+selected_mbti = st.selectbox("당신의 MBTI를 선택하세요", [""] + mbti_options)
 
-# 📽️ 추천 영화 출력
-if user_mbti:
-    if user_mbti in mbti_movies:
-        st.balloons()  # 🎈 풍선 효과
-        st.success(f"🎉 {user_mbti}에게 딱 어울리는 영화들입니다!")
-        for movie in mbti_movies[user_mbti]:
-            st.markdown(f"- {movie}")
-    else:
-        st.error("😢 죄송해요! 유효한 MBTI 유형을 입력해주세요. (예: ENTP, ISFJ 등)")
+# 🎬 추천 결과
+if selected_mbti:
+    st.balloons()  # 🎈 풍선 효과
+    st.success(f"🎉 {selected_mbti}에게 딱 어울리는 영화들입니다!")
+    for movie in mbti_movies[selected_mbti]:
+        st.markdown(f"- {movie}")
